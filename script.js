@@ -1,57 +1,113 @@
+/* The main todo List
+  - Will contain all todos in this application
+*/
 let todos = [
   { id: 1, text: "Learn JavaScript" },
   { id: 2, text: "Build a to-do app" },
   { id: 3, text: "Master DOM manipulation" },
 ];
 
-// TODO: Select and store references to the necessary DOM elements:
-// - todoList: the <ul> element to contain the todo items
-// - todoInput: the input field for new todos
-// - addButton: the button to add new todos
+/* Getting the various dom elements, and placing them into variables
+  - todoList = The list itself, where the todo items are displayed.
+  - todoInput = The input field, where user gives a name to the todo
+  - addButton = Where user clicks to add an todo to the array list
+*/
+const todoList = document.getElementById("todo-list");
+const todoInput = document.getElementById("todo-input");
+const addButton = document.getElementById("add-button");
 
 // Create todo item element
 function createTodoElement(todo) {
-  // TODO: Implement this function
-  // 1. Create a new <li> element
-  // 2. Add the 'todo-item' class to the <li>
-  // 3. Create a <span> for the todo text
-  // 4. Set the span's text content to todo.text
-  // 5. Create a delete button
-  // 6. Add a click event listener to the delete button that calls deleteTodo(todo.id)
-  // 7. Append the span and delete button to the <li>
-  // 8. Return the <li> element
+  // List element and the todo-item css class
+  const listItem = document.createElement("li");
+  listItem.classList.add("todo-item");
+
+  // Span, which contain the todo text itself
+  const textContainer = document.createElement("span");
+  textContainer.textContent = todo.text;
+
+  /* Delete Button
+    - Styles with the css class delete-button
+    - Added the text Delete to it
+  */
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete-button");
+  deleteButton.textContent = "Delete";
+
+  /* Delete Event Listener
+    - Waits for the user to click the delete button on the todo
+    - Then passes the ID of the todo, down to the delete todo function
+    - Which will then delete it from the array
+  */
+  deleteButton.addEventListener("click", () => deleteTodo(todo.id));
+
+  // Adds the span and delete button to the list item
+  listItem.appendChild(textContainer);
+  listItem.appendChild(deleteButton);
+
+  /* Returns the list item once it is built up.
+    - This happens for every single object within the todo array.
+    - Looping through it
+  */
+  return listItem;
 }
 
-// Render todos
+/* Render todos
+  - Clears the list itself, to be re-buildt with latest version of the todo list.
+  - Using an map() due to the hint given in the assignment.
+    - Each loop, triggers the createTodoElement function.
+    - Creating a new listItem based on the object in the list.
+    - Adding it then to the todoList itself.
+*/
 function renderTodos() {
-  // TODO: Implement this function
-  // 1. Clear the existing list
-  // 2. Loop through the todos array
-  // 3. For each todo, call createTodoElement(todo) and append the result to the todo list
+  todoList.innerHTML = "";
+  todoList.append(...todos.map(createTodoElement));
 }
 
-// Add todo
+/* Add todo
+  - Adding a new Todo object to the todo array.
+  - First getting the text from the input itself.
+      - Using trim()
+  - Then check if it is empty or not.
+  - If it got content then i create the new Object that will go into the todo array.
+    - Using Date.not() to create an unique ID.
+    - And the text itself of course.
+  - Pushing it to the todo array
+  - Clearing the input field value, since the action is completed.
+  - Getting the latest version of the todo list and displays it.
+*/
 function addTodo() {
-  // TODO: Implement this function
-  // 1. Get the text from the input field
-  // 2. If the text is not empty:
-  //    a. Create a new todo object with a unique id and the input text
-  //    b. Add the new todo object to the todos array
-  //    c. Clear the input field
-  //    d. Call renderTodos() to update the display
+  const text = todoInput.value.trim();
+  if (text !== "") {
+    const newTodo = {
+      id: Date.now(),
+      text: text,
+    };
+    todos.push(newTodo);
+    todoInput.value = "";
+    renderTodos();
+  }
 }
 
-// Delete todo
+/* Delete todo
+  - Takes the ID of the todo to remove from the list.
+  - Filters through it
+  - Getting the latest version of the todo list.
+*/
 function deleteTodo(id) {
-  // TODO: Implement this function
-  // 1. Remove the todo with the given id from the todos array
-  // 2. Call renderTodos() to update the display
+  todos = todos.filter((todo) => todo.id !== id);
+  renderTodos();
 }
 
-// TODO: Add a click event listener to the add button that calls addTodo
+// Listens to the click of the add todo button and trigger the addTodo function
+addButton.addEventListener("click", addTodo);
 
-// TODO: Add a keypress event listener to the input field
-// that calls addTodo when the Enter key is pressed
+// When hitting enter on the input, it adds the todo aswell.
+todoInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    addTodo();
+  }
+});
 
 // Initial render
 renderTodos();
