@@ -17,7 +17,7 @@ const todoInput = document.getElementById("todo-input");
 const addButton = document.getElementById("add-button");
 
 // Create todo item element
-function createTodoElement(todo) {
+const createTodoElement = (todo) => {
   // List element and the todo-item css class
   const listItem = document.createElement("li");
   listItem.classList.add("todo-item");
@@ -50,7 +50,7 @@ function createTodoElement(todo) {
     - Looping through it
   */
   return listItem;
-}
+};
 
 /* Render todos
   - Clears the list itself, to be re-buildt with latest version of the todo list.
@@ -59,10 +59,10 @@ function createTodoElement(todo) {
     - Creating a new listItem based on the object in the list.
     - Adding it then to the todoList itself.
 */
-function renderTodos() {
+const renderTodos = () => {
   todoList.innerHTML = "";
   todoList.append(...todos.map(createTodoElement));
-}
+};
 
 /* Add todo
   - Adding a new Todo object to the todo array.
@@ -76,7 +76,7 @@ function renderTodos() {
   - Clearing the input field value, since the action is completed.
   - Getting the latest version of the todo list and displays it.
 */
-function addTodo() {
+const addTodo = () => {
   const text = todoInput.value.trim();
   if (text !== "") {
     const newTodo = {
@@ -87,17 +87,17 @@ function addTodo() {
     todoInput.value = "";
     renderTodos();
   }
-}
+};
 
 /* Delete todo
   - Takes the ID of the todo to remove from the list.
   - Filters through it
   - Getting the latest version of the todo list.
 */
-function deleteTodo(id) {
+const deleteTodo = (id) => {
   todos = todos.filter((todo) => todo.id !== id);
   renderTodos();
-}
+};
 
 // Listens to the click of the add todo button and trigger the addTodo function
 addButton.addEventListener("click", addTodo);
