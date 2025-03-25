@@ -125,3 +125,8 @@ h1 {
   background-color: black;
   color: white;
 }
+
+/* Define if the clear all button will be shown or not - based on if todo array got content or not */
+.hide-button {
+  display: none;
+}

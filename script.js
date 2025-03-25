@@ -64,6 +64,17 @@ const createTodoElement = (todo) => {
   return listItem;
 };
 
+// Hide Clear Completed button if todo array is empty
+const toggleClearCompletedButton = () => {
+  if (todos.length >= 1) {
+    console.log("I got content");
+    clearCompletedButton.classList.remove("hide-button");
+  } else {
+    console.log("I do not have any content");
+    clearCompletedButton.classList.add("hide-button");
+  }
+};
+
 /* Render todos
   - Clears the list itself, to be re-buildt with latest version of the todo list.
   - Using an map() due to the hint given in the assignment.
@@ -74,6 +85,9 @@ const createTodoElement = (todo) => {
 const renderTodos = () => {
   todoList.innerHTML = "";
   todoList.append(...todos.map(createTodoElement));
+
+  // Displays state on the clear completed button
+  toggleClearCompletedButton();
 };
 
 /* Add todo
