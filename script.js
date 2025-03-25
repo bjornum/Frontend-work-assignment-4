@@ -1,20 +1,18 @@
 /* The main todo List
   - Will contain all todos in this application
 */
-let todos = [
-  { id: 1, text: "Learn JavaScript" },
-  { id: 2, text: "Build a to-do app" },
-  { id: 3, text: "Master DOM manipulation" },
-];
+let todos = [];
 
 /* Getting the various dom elements, and placing them into variables
   - todoList = The list itself, where the todo items are displayed.
   - todoInput = The input field, where user gives a name to the todo
   - addButton = Where user clicks to add an todo to the array list
+  - clearCompletedButton = Clear away all completed todo items
 */
 const todoList = document.getElementById("todo-list");
 const todoInput = document.getElementById("todo-input");
 const addButton = document.getElementById("add-button");
+const clearCompletedButton = document.getElementById("clear-completed");
 
 // Create todo item element
 const createTodoElement = (todo) => {
@@ -22,9 +20,21 @@ const createTodoElement = (todo) => {
   const listItem = document.createElement("li");
   listItem.classList.add("todo-item");
 
+  // Checkbox to mark as completed
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = todo.completed;
+  checkbox.addEventListener("change", () => toggleTodo(todo.id));
+
   // Span, which contain the todo text itself
   const textContainer = document.createElement("span");
   textContainer.textContent = todo.text;
+
+  // If an todo is completed, display it as such with a line through
+  if (todo.completed) {
+    textContainer.style.textDecoration = "line-through";
+    textContainer.style.opacity = "0.5";
+  }
 
   /* Delete Button
     - Styles with the css class delete-button
@@ -41,7 +51,8 @@ const createTodoElement = (todo) => {
   */
   deleteButton.addEventListener("click", () => deleteTodo(todo.id));
 
-  // Adds the span and delete button to the list item
+  // Adds the Checkbox, Span and Delete Button to the list item
+  listItem.appendChild(checkbox);
   listItem.appendChild(textContainer);
   listItem.appendChild(deleteButton);
 
@@ -108,6 +119,24 @@ todoInput.addEventListener("keypress", (event) => {
     addTodo();
   }
 });
+
+// Removes completed tasks
+const clearCompletedTodos = () => {
+  todos = todos.filter((todo) => !todo.completed);
+  renderTodos();
+};
+
+// Toggle if something is completed or not
+const toggleTodo = (id) => {
+  const todo = todos.find((t) => t.id === id);
+  if (todo) {
+    todo.completed = !todo.completed; // Toggle between true/false
+  }
+  renderTodos();
+};
+
+// Clears all completed todos when clicked
+clearCompletedButton.addEventListener("click", clearCompletedTodos);
 
 // Initial render
 renderTodos();
