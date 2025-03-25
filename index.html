@@ -7,15 +7,23 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <main class="container">
       <h1>My To-Do List</h1>
-      <div class="input-container">
+
+      <!-- Creating the Todo Itself here -->
+      <section class="input-container">
         <input type="text" id="todo-input" placeholder="Add a new task" />
-        <button id="add-button">Add</button>
-      </div>
-      <ul id="todo-list"></ul>
-      <button id="clear-completed">Clear Completed</button>
-    </div>
+        <button type="button" id="add-button">Add</button>
+      </section>
+
+      <!-- Todos are displayed here -->
+      <section>
+        <ul id="todo-list"></ul>
+      </section>
+
+      <!-- Clears all todo that are completed, only displays if todo array got content -->
+      <button type="button" id="clear-completed">Clear Completed</button>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
