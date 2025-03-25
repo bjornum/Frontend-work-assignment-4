@@ -67,10 +67,8 @@ const createTodoElement = (todo) => {
 // Hide Clear Completed button if todo array is empty
 const toggleClearCompletedButton = () => {
   if (todos.length >= 1) {
-    console.log("I got content");
     clearCompletedButton.classList.remove("hide-button");
   } else {
-    console.log("I do not have any content");
     clearCompletedButton.classList.add("hide-button");
   }
 };
