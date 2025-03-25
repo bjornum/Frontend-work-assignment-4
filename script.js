@@ -24,6 +24,7 @@ const createTodoElement = (todo) => {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.checked = todo.completed;
+  checkbox.classList.add("custom-checkbox");
   checkbox.addEventListener("change", () => toggleTodo(todo.id));
 
   // Span, which contain the todo text itself
