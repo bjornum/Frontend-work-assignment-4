@@ -141,7 +141,7 @@ const clearCompletedTodos = () => {
 
 // Toggle if something is completed or not
 const toggleTodo = (id) => {
-  const todo = todos.find((t) => t.id === id);
+  const todo = todos.find((task) => task.id === id);
   if (todo) {
     todo.completed = !todo.completed; // Toggle between true/false
   }
