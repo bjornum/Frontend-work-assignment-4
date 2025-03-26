@@ -26,6 +26,8 @@
 
 ## **Upcoming Features** 🚀
 
+- Brainstorming of how to upgrade the todo application
+
 ### Localstorage storage
 
 - This will make sure that the todo list will stay the same in the browser when refreshing.
@@ -51,5 +53,14 @@
 ### Search feature
 
 - Search through the todos
+
+### Priority tags
+
+- Tags like important, must do, reminder, and so on.
+- Or simple: low, medium, high priority
+
+### Edit of Existing Todo
+
+- Editing of todos
 
 ---
